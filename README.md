@@ -15,6 +15,7 @@ Usage
 
 This check is tested working on:
 * Ubuntu 16.04 - PHP 7.0
+* Ubuntu 18.04 - PHP 7.2
 
 no need for query login, all metrics are public
 ```
