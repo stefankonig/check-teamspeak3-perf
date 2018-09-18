@@ -570,7 +570,8 @@ class Teamspeak3Telnet
     {
         // Open socket
         $this->debugLog("Connecting to tcp://{$ipAddress}:{$port}");
-        $this->socket = fsockopen("tcp://{$ipAddress}", $port, $errNr, $errStr, $this->timeout);
+        // suppress warning, so it wont show up in icinga
+        $this->socket = @fsockopen("tcp://{$ipAddress}", $port, $errNr, $errStr, $this->timeout);
         if ($this->socket) {
             // Set socket parameters
             socket_set_timeout($this->socket, $this->timeout);
@@ -719,4 +720,3 @@ class Teamspeak3Telnet
         }
     }
 }
-
