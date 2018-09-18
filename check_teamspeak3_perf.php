@@ -594,7 +594,7 @@ class Teamspeak3Telnet
 
     /**
      * @param int $virtualServerPort
-     * @return string
+     * @return array
      */
     public function selectVirtualServerByPort($virtualServerPort)
     {
@@ -605,7 +605,7 @@ class Teamspeak3Telnet
     /**
      * @param string $username
      * @param string $password
-     * @return string
+     * @return array
      */
     public function login($username, $password)
     {
@@ -682,7 +682,7 @@ class Teamspeak3Telnet
 
     /**
      * @param string $command
-     * @return string
+     * @return array
      */
     private function sendServerCommand($command)
     {
