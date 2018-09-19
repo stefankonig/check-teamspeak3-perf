@@ -173,6 +173,7 @@ class checkTeamspeakPerf
 
 
         $virtualServerInfo = $response['response'];
+
         if (!isset($virtualServerInfo['virtualserver_name'])) {
             $this->debugLog('malformed server output: ' . PHP_EOL . $response['rawresponse']);
             $this->echoExit(self::STATE_CRITICAL, "malformed instance output, unable to parse virtualservername");
@@ -270,9 +271,13 @@ class checkTeamspeakPerf
                 $this->echoExit(self::STATE_CRITICAL, "malformed clientinfo output, unable to parse client amount");
             }
 
-            $maxClients     = intval($virtualServerInfo['virtualserver_maxclients']);
-            $currentClients = intval($virtualServerInfo['virtualserver_clientsonline']);
+            $maxClients    = intval($virtualServerInfo['virtualserver_maxclients']);
+            $onlineClients = intval($virtualServerInfo['virtualserver_clientsonline']);
+            $queryClients  = intval($virtualServerInfo['virtualserver_queryclientsonline']);
             $reservedSlots = intval($virtualServerInfo['virtualserver_reserved_slots']);
+
+            // subtract query clients from clientcount
+            $currentClients = $onlineClients - $queryClients;
 
             $serviceStatus = "{$virtualServerName} has {$currentClients}/{$maxClients} clients online and is running for " . $this->secondsToTimeAgo(
                     $virtualServerInfo['virtualserver_uptime']
